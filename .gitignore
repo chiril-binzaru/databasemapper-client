@@ -3,6 +3,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .kotlin
+.codex
+.idea/encodings.xml
+.idea/vcs.xml
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
