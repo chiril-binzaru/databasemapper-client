@@ -3,8 +3,6 @@ package io.github.chirilbinzaru.databasemapper.client.example;
 import io.github.chirilbinzaru.databasemapper.client.assertion.JsonAssert;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
 class JsonAssertExampleTest {
     @Test
     void printsReadableJsonMismatches() {
@@ -34,14 +32,6 @@ class JsonAssertExampleTest {
                 }
                 """;
 
-        AssertionError assertionError = null;
-        try {
-            JsonAssert.assertEquals(expectedFromDatabase, actualFromService);
-        } catch (AssertionError error) {
-            assertionError = error;
-            System.out.println(error.getMessage());
-        }
-
-        assertFalse(assertionError == null, "Example data should produce visible mismatches");
+        JsonAssert.assertEquals(expectedFromDatabase, actualFromService);
     }
 }
