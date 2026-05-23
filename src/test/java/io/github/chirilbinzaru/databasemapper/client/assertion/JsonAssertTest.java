@@ -19,8 +19,8 @@ class JsonAssertTest {
     @Test
     void reportsReadableMismatchesWithPaths() {
         AssertionError error = assertThrows(AssertionError.class, () -> JsonAssert.assertEquals(
-                "{\"id\":1,\"name\":\"John\",\"pets\":[{\"id\":10}],\"active\":true}",
-                "{\"id\":2,\"pets\":[],\"extra\":\"value\"}"
+                "{\"id\":2,\"pets\":[],\"extra\":\"value\"}",
+                "{\"id\":1,\"name\":\"John\",\"pets\":[{\"id\":10}],\"active\":true}"
         ));
 
         String message = error.getMessage();

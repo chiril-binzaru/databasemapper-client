@@ -16,20 +16,28 @@ public final class JsonAssert {
     private JsonAssert() {
     }
 
-    public static void assertEquals(String expectedJson, String actualJson) {
-        assertEquals(readTree(expectedJson), readTree(actualJson));
+    public static void assertEquals(String actual, String expected) {
+        assertEquals(readTree(actual), readTree(expected));
     }
 
-    public static void assertEquals(JsonNode expected, JsonNode actual) {
+    public static <T> void assertEquals(T actual, T expected) {
+        assertEquals(DEFAULT_MAPPER.valueToTree(actual), (JsonNode) DEFAULT_MAPPER.valueToTree(expected));
+    }
+
+    public static <T> void assertEquals(List<T> actual, List<T> expected) {
+        assertEquals(DEFAULT_MAPPER.valueToTree(actual), (JsonNode) DEFAULT_MAPPER.valueToTree(expected));
+    }
+
+    public static void assertEquals(JsonNode actual, JsonNode expected) {
         JsonComparison comparison = compare(expected, actual);
         if (!comparison.matches()) {
             throw new AssertionError(comparison.format());
         }
     }
 
-    public static JsonComparison compare(JsonNode expected, JsonNode actual) {
-        Objects.requireNonNull(expected, "expected must not be null");
+    private static JsonComparison compare(JsonNode expected, JsonNode actual) {
         Objects.requireNonNull(actual, "actual must not be null");
+        Objects.requireNonNull(expected, "expected must not be null");
 
         List<JsonMismatch> mismatches = new ArrayList<>();
         compareNode("$", expected, actual, mismatches);
