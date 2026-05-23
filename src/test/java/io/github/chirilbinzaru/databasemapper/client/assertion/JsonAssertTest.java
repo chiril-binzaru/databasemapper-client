@@ -24,10 +24,10 @@ class JsonAssertTest {
         ));
 
         String message = error.getMessage();
-        assertTrue(message.contains("$.id -> value mismatch: expected 1, actual 2"));
-        assertTrue(message.contains("$.name -> missing field: expected \"John\""));
-        assertTrue(message.contains("$.pets -> array size mismatch: expected 1, actual 0"));
-        assertTrue(message.contains("$.extra -> unexpected field: actual \"value\""));
+        assertTrue(message.contains("[VALUE]   $.id -> expected 1, actual 2"));
+        assertTrue(message.contains("[MISSING] $.name -> expected \"John\""));
+        assertTrue(message.contains("[SIZE]    $.pets -> expected 1, actual 0"));
+        assertTrue(message.contains("[EXTRA]   $.extra -> actual \"value\""));
         assertFalse(message.isBlank());
     }
 }
