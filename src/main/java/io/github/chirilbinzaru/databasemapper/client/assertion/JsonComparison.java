@@ -16,11 +16,9 @@ public record JsonComparison(List<JsonMismatch> mismatches) {
             return "JSON documents match";
         }
 
-        StringBuilder builder = new StringBuilder("JSON documents differ:");
+        StringBuilder builder = new StringBuilder();
         for (JsonMismatch mismatch : mismatches) {
-            builder.append(System.lineSeparator())
-                    .append("- ")
-                    .append(mismatch.format());
+            builder.append(System.lineSeparator()).append("- ").append(mismatch.format());
         }
         return builder.toString();
     }
