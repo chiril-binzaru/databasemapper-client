@@ -1,7 +1,11 @@
 package io.github.chirilbinzaru.databasemapper.client.example;
 
 import io.github.chirilbinzaru.databasemapper.client.assertion.JsonAssert;
+import io.github.chirilbinzaru.databasemapper.client.example.models.codegen.Specialty;
+import io.github.chirilbinzaru.databasemapper.client.example.models.codegen.Vet;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 class JsonAssertExampleTest {
     @Test
@@ -32,6 +36,30 @@ class JsonAssertExampleTest {
                 }
                 """;
 
-        JsonAssert.assertEquals(expectedFromDatabase, actualFromService);
+        JsonAssert.assertEquals(actualFromService, expectedFromDatabase);
+    }
+
+    @Test
+    void printsReadableJsonMismatchesForObjects() {
+        Vet actualFromService = new Vet(1).firstName("Jon").lastName("Smith")
+                .specialties(List.of(new Specialty(4)));
+        Vet expectedFromDatabase = new Vet(1).firstName("John").lastName("Smith")
+                .specialties(List.of(new Specialty(3).name("Cardiology")));
+
+        JsonAssert.assertEquals(actualFromService, expectedFromDatabase);
+    }
+
+    @Test
+    void printsReadableJsonMismatchesForLists() {
+        List<Vet> actualFromService = List.of(
+                new Vet(1).firstName("Jon").lastName("Smith").specialties(List.of(new Specialty(3).name("Cardiology"))),
+                new Vet(2).firstName("Jane").lastName("Doe").specialties(List.of(new Specialty(5).name("Neurology")))
+        );
+        List<Vet> expectedFromDatabase = List.of(
+                new Vet(1).firstName("John").lastName("Smith").specialties(List.of(new Specialty(3).name("Cardiology"))),
+                new Vet(2).firstName("Jane").lastName("Doe").specialties(List.of(new Specialty(7).name("Neurology")))
+        );
+
+        JsonAssert.assertEquals(actualFromService, expectedFromDatabase);
     }
 }
