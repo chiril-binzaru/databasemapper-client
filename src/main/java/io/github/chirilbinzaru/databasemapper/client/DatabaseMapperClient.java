@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.github.chirilbinzaru.databasemapper.client.api.EndpointDataApi;
 import io.github.chirilbinzaru.databasemapper.client.config.DatabaseMapperClientConfig;
 
+import java.net.URI;
 import java.net.http.HttpClient;
 import java.util.Map;
 import java.util.Objects;
@@ -13,6 +14,10 @@ import java.util.Objects;
  */
 public final class DatabaseMapperClient {
     private final EndpointDataApi endpointDataApi;
+
+    public DatabaseMapperClient(String baseUrl) {
+        this(DatabaseMapperClientConfig.builder(URI.create(baseUrl)).build());
+    }
 
     public DatabaseMapperClient(DatabaseMapperClientConfig config) {
         this(config, HttpClient.newBuilder()
