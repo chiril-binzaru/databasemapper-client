@@ -1,5 +1,6 @@
-package io.github.chirilbinzaru.databasemapper.client.assertion;
+package io.github.chirilbinzaru.databasemapper.client.actual_tests;
 
+import io.github.chirilbinzaru.databasemapper.client.assertion.JsonAssert;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

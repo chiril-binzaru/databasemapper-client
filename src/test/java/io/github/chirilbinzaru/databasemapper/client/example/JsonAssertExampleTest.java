@@ -3,7 +3,7 @@ package io.github.chirilbinzaru.databasemapper.client.example;
 import io.github.chirilbinzaru.databasemapper.client.assertion.JsonAssert;
 import io.github.chirilbinzaru.databasemapper.client.example.models.codegen.Specialty;
 import io.github.chirilbinzaru.databasemapper.client.example.models.codegen.Vet;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 
 import java.util.List;
 
