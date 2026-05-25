@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-class JsonAssertExampleTest {
+public class JsonAssertExampleTest {
     @Test
     void printsReadableJsonMismatches() {
         String expectedFromDatabase = """
