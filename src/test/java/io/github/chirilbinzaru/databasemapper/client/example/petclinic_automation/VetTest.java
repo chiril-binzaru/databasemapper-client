@@ -1,33 +1,17 @@
 package io.github.chirilbinzaru.databasemapper.client.example.petclinic_automation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.chirilbinzaru.databasemapper.client.assertion.JsonAssert;
 import io.github.chirilbinzaru.databasemapper.client.example.models.codegen.Vet;
 import org.testng.annotations.Test;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Map;
 
 public class VetTest extends BaseTest {
 
     @Test
-    void getVetByIdTest() throws Exception {
-        Long vetEndpointId = 216L;
-
-        Vet expectedFromDatabase = databaseMapperClient.getModel(vetEndpointId, Map.of("id", 2), Vet.class);
-
-        HttpResponse<String> response = HttpClient.newHttpClient().send(
-                HttpRequest.newBuilder()
-                        .uri(URI.create("http://localhost:9966/petclinic/api/vets/2"))
-                        .header("Accept", "application/json")
-                        .GET()
-                        .build(),
-                HttpResponse.BodyHandlers.ofString()
-        );
-        Vet actualFromService = new ObjectMapper().readValue(response.body(), Vet.class);
+    void getVetByIdTest() {
+        Vet expectedFromDatabase = databaseMapperClient.getModel(216L, Map.of("id", 2), Vet.class);
+        Vet actualFromService = restWrapper.get("/vets/2", Vet.class);
 
         JsonAssert.assertEquals(actualFromService, expectedFromDatabase);
     }
