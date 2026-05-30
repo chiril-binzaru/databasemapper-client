@@ -12,6 +12,7 @@ import java.util.Objects;
  */
 public final class DatabaseMapperClient {
     private final EndpointDataApi endpointDataApi;
+    private String defaultServiceName;
 
     public DatabaseMapperClient(String baseUrl) {
         this(DatabaseMapperClientConfig.builder(URI.create(baseUrl)).build());
@@ -28,7 +29,16 @@ public final class DatabaseMapperClient {
         this.endpointDataApi = new EndpointDataApi(config, Objects.requireNonNull(httpClient, "httpClient must not be null"));
     }
 
+    public DatabaseMapperClient defaultServiceName(String defaultServiceName) {
+        Objects.requireNonNull(defaultServiceName, "defaultServiceName must not be null");
+        if (defaultServiceName.isBlank()) {
+            throw new IllegalArgumentException("defaultServiceName must not be blank");
+        }
+        this.defaultServiceName = defaultServiceName;
+        return this;
+    }
+
     public DataRequestBuilder data() {
-        return new DataRequestBuilder(endpointDataApi);
+        return new DataRequestBuilder(endpointDataApi, defaultServiceName);
     }
 }
