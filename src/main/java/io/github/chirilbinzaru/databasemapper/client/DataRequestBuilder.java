@@ -47,7 +47,7 @@ public final class DataRequestBuilder {
         return httpMethod("DELETE");
     }
 
-    public DataRequestBuilder httpMethod(String httpMethod) {
+    private DataRequestBuilder httpMethod(String httpMethod) {
         this.httpMethod = httpMethod;
         return this;
     }
