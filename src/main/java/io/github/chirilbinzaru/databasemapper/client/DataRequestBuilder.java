@@ -1,0 +1,67 @@
+package io.github.chirilbinzaru.databasemapper.client;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import io.github.chirilbinzaru.databasemapper.client.api.EndpointDataApi;
+
+import java.util.Map;
+import java.util.Objects;
+
+public final class DataRequestBuilder {
+    private final EndpointDataApi endpointDataApi;
+    private String serviceName;
+    private String endpointPath;
+    private String httpMethod;
+    private Map<String, ?> filters;
+
+    DataRequestBuilder(EndpointDataApi endpointDataApi) {
+        this.endpointDataApi = Objects.requireNonNull(endpointDataApi, "endpointDataApi must not be null");
+    }
+
+    public DataRequestBuilder serviceName(String serviceName) {
+        this.serviceName = serviceName;
+        return this;
+    }
+
+    public DataRequestBuilder endpointPath(String endpointPath) {
+        this.endpointPath = endpointPath;
+        return this;
+    }
+
+    public DataRequestBuilder httpGet() {
+        return httpMethod("GET");
+    }
+
+    public DataRequestBuilder httpPost() {
+        return httpMethod("POST");
+    }
+
+    public DataRequestBuilder httpPut() {
+        return httpMethod("PUT");
+    }
+
+    public DataRequestBuilder httpPatch() {
+        return httpMethod("PATCH");
+    }
+
+    public DataRequestBuilder httpDelete() {
+        return httpMethod("DELETE");
+    }
+
+    public DataRequestBuilder httpMethod(String httpMethod) {
+        this.httpMethod = httpMethod;
+        return this;
+    }
+
+    public DataRequestBuilder filters(Map<String, ?> filters) {
+        this.filters = filters;
+        return this;
+    }
+
+    public JsonNode getJsonNode() {
+        return endpointDataApi.getData(serviceName, endpointPath, httpMethod, filters);
+    }
+
+    public <T> T getModel(Class<T> modelClass) {
+        return endpointDataApi.getData(serviceName, endpointPath, httpMethod, filters, modelClass);
+    }
+}

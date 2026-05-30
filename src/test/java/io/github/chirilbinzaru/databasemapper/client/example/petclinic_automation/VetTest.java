@@ -10,7 +10,13 @@ public class VetTest extends BaseTest {
 
     @Test
     void getVetByIdTest() {
-        Vet expectedFromDatabase = databaseMapperClient.getModel(216L, Map.of("id", 2), Vet.class);
+        Vet expectedFromDatabase = databaseMapperClient
+                .data()
+                .serviceName("spring-petclinic-rest")
+                .endpointPath("/petclinic/api/vets/{vetId}")
+                .httpGet()
+                .filters(Map.of("id", 2))
+                .getModel(Vet.class);
         Vet actualFromService = restWrapper.get("/vets/2", Vet.class);
 
         JsonAssert.assertEquals(actualFromService, expectedFromDatabase);
