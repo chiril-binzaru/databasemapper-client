@@ -27,9 +27,9 @@ public final class EndpointDataApi {
         this.objectMapper = config.objectMapper();
     }
 
-    public JsonNode getData(long endpointId, Map<String, ?> filters) {
-        DataRequest dataRequest = new DataRequest(filters);
-        HttpRequest request = requestBuilder(endpointDataUri(endpointId))
+    public JsonNode getData(String serviceName, String endpointPath, String httpMethod, Map<String, ?> filters) {
+        DataRequest dataRequest = new DataRequest(serviceName, endpointPath, httpMethod, filters);
+        HttpRequest request = requestBuilder(dataUri())
                 .POST(HttpRequest.BodyPublishers.ofString(toJson(dataRequest)))
                 .build();
 
@@ -38,9 +38,9 @@ public final class EndpointDataApi {
         return fromJson(response.body(), JsonNode.class);
     }
 
-    public <T> T getData(long endpointId, Map<String, ?> filters, Class<T> modelClass) {
+    public <T> T getData(String serviceName, String endpointPath, String httpMethod, Map<String, ?> filters, Class<T> modelClass) {
         Objects.requireNonNull(modelClass, "modelClass must not be null");
-        return objectMapper.convertValue(getData(endpointId, filters), modelClass);
+        return objectMapper.convertValue(getData(serviceName, endpointPath, httpMethod, filters), modelClass);
     }
 
     private HttpRequest.Builder requestBuilder(URI uri) {
@@ -53,8 +53,8 @@ public final class EndpointDataApi {
         return builder;
     }
 
-    private URI endpointDataUri(long endpointId) {
-        return config.baseUrl().resolve("/api/v1/endpoints/" + endpointId + "/data");
+    private URI dataUri() {
+        return config.baseUrl().resolve("/api/v1/data");
     }
 
     private String toJson(Object value) {
