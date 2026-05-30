@@ -11,12 +11,10 @@ public class BaseTest {
 
     private static final Properties PETCLINIC_PROPERTIES = loadPetclinicProperties();
 
-    protected String petclinicServiceName = requiredProperty("petclinic.service-name");
-    protected DatabaseMapperClient databaseMapperClient = new DatabaseMapperClient("http://localhost:8080");
-    protected RestWrapper restWrapper = new RestWrapper(
-            requiredProperty("petclinic.base-url"),
-            requiredProperty("petclinic.base-path")
-    );
+    protected String petclinicBasePath = requiredProperty("petclinic.base-path");
+    protected DatabaseMapperClient databaseMapperClient = new DatabaseMapperClient("http://localhost:8080")
+            .defaultServiceName(requiredProperty("petclinic.service-name"));
+    protected RestWrapper restWrapper = new RestWrapper(requiredProperty("petclinic.base-url"));
 
     private static Properties loadPetclinicProperties() {
         Properties properties = new Properties();

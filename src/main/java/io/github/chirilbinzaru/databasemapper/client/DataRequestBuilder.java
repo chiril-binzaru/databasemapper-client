@@ -13,8 +13,9 @@ public final class DataRequestBuilder {
     private String httpMethod;
     private Map<String, ?> filters;
 
-    DataRequestBuilder(EndpointDataApi endpointDataApi) {
+    DataRequestBuilder(EndpointDataApi endpointDataApi, String defaultServiceName) {
         this.endpointDataApi = Objects.requireNonNull(endpointDataApi, "endpointDataApi must not be null");
+        this.serviceName = defaultServiceName;
     }
 
     public DataRequestBuilder serviceName(String serviceName) {

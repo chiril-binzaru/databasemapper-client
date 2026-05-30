@@ -10,14 +10,15 @@ public class VetTest extends BaseTest {
 
     @Test
     void getVetByIdTest() {
+        Integer vetId = 2;
+
         Vet expectedFromDatabase = databaseMapperClient
                 .data()
-                .serviceName(petclinicServiceName)
-                .endpointPath("/petclinic/api/vets/{vetId}")
+                .endpointPath(petclinicBasePath + "/vets/{vetId}")
                 .httpGET()
-                .filters(Map.of("id", 2))
+                .filters(Map.of("id", vetId))
                 .getModel(Vet.class);
-        Vet actualFromService = restWrapper.get("/vets/2", Vet.class);
+        Vet actualFromService = restWrapper.get(petclinicBasePath + "/vets/" + vetId, Vet.class);
 
         JsonAssert.assertEquals(actualFromService, expectedFromDatabase);
     }
