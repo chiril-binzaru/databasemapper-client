@@ -12,7 +12,7 @@ public class VetTest extends BaseTest {
     void getVetByIdTest() {
         Vet expectedFromDatabase = databaseMapperClient
                 .data()
-                .serviceName("spring-petclinic-rest")
+                .serviceName(petclinicServiceName)
                 .endpointPath("/petclinic/api/vets/{vetId}")
                 .httpGET()
                 .filters(Map.of("id", 2))
