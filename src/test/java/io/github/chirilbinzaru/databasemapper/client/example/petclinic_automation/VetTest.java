@@ -14,7 +14,7 @@ public class VetTest extends BaseTest {
                 .data()
                 .serviceName("spring-petclinic-rest")
                 .endpointPath("/petclinic/api/vets/{vetId}")
-                .httpGet()
+                .httpGET()
                 .filters(Map.of("id", 2))
                 .getModel(Vet.class);
         Vet actualFromService = restWrapper.get("/vets/2", Vet.class);
