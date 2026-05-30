@@ -27,23 +27,23 @@ public final class DataRequestBuilder {
         return this;
     }
 
-    public DataRequestBuilder httpGet() {
+    public DataRequestBuilder httpGET() {
         return httpMethod("GET");
     }
 
-    public DataRequestBuilder httpPost() {
+    public DataRequestBuilder httpPOST() {
         return httpMethod("POST");
     }
 
-    public DataRequestBuilder httpPut() {
+    public DataRequestBuilder httpPUT() {
         return httpMethod("PUT");
     }
 
-    public DataRequestBuilder httpPatch() {
+    public DataRequestBuilder httpPATCH() {
         return httpMethod("PATCH");
     }
 
-    public DataRequestBuilder httpDelete() {
+    public DataRequestBuilder httpDELETE() {
         return httpMethod("DELETE");
     }
 
