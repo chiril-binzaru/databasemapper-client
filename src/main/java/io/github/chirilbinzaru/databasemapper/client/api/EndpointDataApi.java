@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -41,6 +42,14 @@ public final class EndpointDataApi {
     public <T> T getData(String serviceName, String endpointPath, String httpMethod, Map<String, ?> filters, Class<T> modelClass) {
         Objects.requireNonNull(modelClass, "modelClass must not be null");
         return objectMapper.convertValue(getData(serviceName, endpointPath, httpMethod, filters), modelClass);
+    }
+
+    public <T> List<T> getList(String serviceName, String endpointPath, String httpMethod, Map<String, ?> filters, Class<T> elementClass) {
+        Objects.requireNonNull(elementClass, "elementClass must not be null");
+        return objectMapper.convertValue(
+                getData(serviceName, endpointPath, httpMethod, filters),
+                objectMapper.getTypeFactory().constructCollectionType(List.class, elementClass)
+        );
     }
 
     private HttpRequest.Builder requestBuilder(URI uri) {
