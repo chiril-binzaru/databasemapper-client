@@ -18,40 +18,60 @@ public class RestWrapper {
     }
 
     public <T> T get(String path, Class<T> type) {
+        return get(path, type, 200);
+    }
+
+    public <T> T get(String path, Class<T> type, int expectedStatusCode) {
         return request()
                 .when().get(url(path))
-                .then().statusCode(200)
+                .then().statusCode(expectedStatusCode)
                 .extract().as(type);
     }
 
     public <T> List<T> getList(String path, Class<T> elementClass) {
+        return getList(path, elementClass, 200);
+    }
+
+    public <T> List<T> getList(String path, Class<T> elementClass, int expectedStatusCode) {
         return request()
                 .when().get(url(path))
-                .then().statusCode(200)
+                .then().statusCode(expectedStatusCode)
                 .extract().as(listTypeRef(elementClass));
     }
 
     public <T> T post(String path, Object body, Class<T> type) {
+        return post(path, body, type, 200);
+    }
+
+    public <T> T post(String path, Object body, Class<T> type, int expectedStatusCode) {
         return request()
                 .body(body)
                 .when().post(url(path))
-                .then().statusCode(200)
+                .then().statusCode(expectedStatusCode)
                 .extract().as(type);
     }
 
     public <T> List<T> postList(String path, Object body, Class<T> elementClass) {
+        return postList(path, body, elementClass, 200);
+    }
+
+    public <T> List<T> postList(String path, Object body, Class<T> elementClass, int expectedStatusCode) {
         return request()
                 .body(body)
                 .when().post(url(path))
-                .then().statusCode(200)
+                .then().statusCode(expectedStatusCode)
                 .extract().as(listTypeRef(elementClass));
     }
 
     public <T> T put(String path, Object body, Class<T> type) {
+        return put(path, body, type, 200);
+    }
+
+    public <T> T put(String path, Object body, Class<T> type, int expectedStatusCode) {
         return request()
                 .body(body)
                 .when().put(url(path))
-                .then().statusCode(200)
+                .then().statusCode(expectedStatusCode)
                 .extract().as(type);
     }
 
