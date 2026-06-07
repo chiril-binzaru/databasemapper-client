@@ -3,6 +3,7 @@ package io.github.chirilbinzaru.databasemapper.client;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.github.chirilbinzaru.databasemapper.client.api.EndpointDataApi;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -64,5 +65,9 @@ public final class DataRequestBuilder {
 
     public <T> T getModel(Class<T> modelClass) {
         return endpointDataApi.getData(serviceName, endpointPath, httpMethod, filters, modelClass);
+    }
+
+    public <T> List<T> getList(Class<T> elementClass) {
+        return endpointDataApi.getList(serviceName, endpointPath, httpMethod, filters, elementClass);
     }
 }

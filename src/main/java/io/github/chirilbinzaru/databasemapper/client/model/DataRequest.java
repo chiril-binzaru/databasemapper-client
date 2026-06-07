@@ -13,10 +13,7 @@ public record DataRequest(
         serviceName = requireNonBlank(serviceName, "serviceName");
         endpointPath = requireNonBlank(endpointPath, "endpointPath");
         httpMethod = requireNonBlank(httpMethod, "httpMethod").toUpperCase();
-        Objects.requireNonNull(filters, "filters must not be null");
-        if (filters.isEmpty()) {
-            throw new IllegalArgumentException("At least one filter is required");
-        }
+        filters = filters != null ? filters : Map.of();
     }
 
     private static String requireNonBlank(String value, String fieldName) {
