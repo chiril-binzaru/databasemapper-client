@@ -1,4 +1,4 @@
-package io.github.chirilbinzaru.databasemapper.client.actual_tests;
+package io.github.chirilbinzaru.databasemapper.client;
 
 import io.github.chirilbinzaru.databasemapper.client.assertion.JsonAssert;
 import org.junit.jupiter.api.Test;
